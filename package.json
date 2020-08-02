@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint src --max-warnings=0",
-    "test": "jest"
+    "test": "jest",
+    "test:watchAll": "yarn test --watch"
   },
   "husky": {
     "hooks": {
@@ -16,8 +17,18 @@
   },
   "lint-staged": {
     "src/**/*": [
-      "yarn lint --fix"
+      "yarn lint --fix",
+      "yarn test --bail"
     ]
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/pages/**/*.tsx",
+      "src/components/**/*.tsx"
+    ],
+    "moduleNameMapper": {
+      "~(.*)$": "<rootDir>/src/$1"
+    }
   },
   "dependencies": {
     "next": "9.5.1",
@@ -26,6 +37,8 @@
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.10.4",
+    "@testing-library/jest-dom": "^5.11.2",
+    "@testing-library/react": "^10.4.7",
     "@types/jest": "^26.0.8",
     "@types/node": "^14.0.27",
     "@types/react": "^16.9.44",
